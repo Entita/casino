@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Montserrat:wght@700&display=swap');
+
+body {
+  margin     : 0;
+  padding    : 0;
+  box-sizing : border-box;
+  overflow: hidden;
+  font-family: 'Italiana', sans-serif;
+  user-select: none;
+}
+
+:root {
+  --main-red: #fe0000;
+  --main-green: #4de035;
+}
