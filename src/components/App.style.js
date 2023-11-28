@@ -13,8 +13,8 @@ export const BackgroundStyled = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  top: -50vh;
-  background: radial-gradient(circle, #ac1020 0%, #280700 75%);
+  top: -70vh;
+  background: radial-gradient(circle, #17a4f5 0%, #003670 60%, #001437 100%);
   z-index: -1;
 `;
 
