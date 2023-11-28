@@ -58,12 +58,15 @@ export const SpecialJackpotAmountStyled = styled.h4`
   font-family: 'Montserrat', sans-serif;
   border-radius: 6px;
   text-wrap: nowrap;
+  min-width: 320px;
 
   @media (min-height: 1100px) {
     font-size: 48px;
+    min-width: 400px;
   }
 
   @media (min-height: 1400px) {
     font-size: 64px;
+    min-width: 500px;
   }
 `;

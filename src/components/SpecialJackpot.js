@@ -1,13 +1,15 @@
 import React from 'react'
+import CountUp from 'react-countup';
 import { SpecialJackpotAmountStyled, SpecialJackpotTitleStyled, SpecialJackpotWrapperStyled } from './SpecialJackpot.style'
 import { MinBetAmountStyled, MinBetTextStyled, MinBetWrapperStyled } from './Jackpot.style'
-import { amountFormatter } from '../utils/util'
 
-export default function SpecialJackpot({ minBet, amount, type }) {
+export default function SpecialJackpot({ minBet, amount, prevAmount, type }) {
   return (
     <SpecialJackpotWrapperStyled>
       <SpecialJackpotTitleStyled>{`${type} JACKPOT`}</SpecialJackpotTitleStyled>
-      <SpecialJackpotAmountStyled type={type}>{`${amountFormatter(amount)} CZK`}</SpecialJackpotAmountStyled>
+      <SpecialJackpotAmountStyled type={type}>
+        <CountUp start={prevAmount} end={amount} duration={2} decimals={2} suffix=' CZK' />
+      </SpecialJackpotAmountStyled>
       <MinBetWrapperStyled>
         <MinBetTextStyled>MIN.BET</MinBetTextStyled>
         <MinBetAmountStyled>{minBet}</MinBetAmountStyled>
