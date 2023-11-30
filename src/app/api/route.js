@@ -18,11 +18,11 @@ export async function POST(req) {
     url: casinoUrl,
   })
 
-  // if (data?.data.jackpot.length > 0) {
+  if (data?.data.jackpot.length > 0) {
     await createJackpot({
       jackpot: JSON.stringify(data?.data.jackpot)
     });
-  // }
+  }
 
   return NextResponse.json(data?.data)
 }
