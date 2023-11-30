@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {
   FooterWrapperStyled,
   JackpotsWrapperStyled,
@@ -12,7 +13,7 @@ import {
 import Jackpot from './Jackpot'
 import SpecialJackpot from './SpecialJackpot'
 import WinShowcase from './WinShowcase'
-import axios from 'axios'
+import JackpotAnimation from './JackpotAnimation'
 
 export default function App() {
   const [data, setData] = React.useState({})
@@ -47,6 +48,7 @@ export default function App() {
 
   return (
     <WrapperStyled>
+      {/* <JackpotAnimation /> */}
       <BackgroundStyled />
       <JackpotsWrapperStyled>
         <NormalJackpotsWrapperStyled>
