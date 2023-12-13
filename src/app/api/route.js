@@ -18,7 +18,8 @@ export async function POST(req) {
     url: casinoUrl,
   })
 
-  if (data?.data.jackpot.length > 0) {
+  if (data?.data?.jackpot?.length > 0) {
+    console.log('added jackpot', data?.data.jackpot)
     await createJackpot({
       jackpot: JSON.stringify(data?.data.jackpot)
     });

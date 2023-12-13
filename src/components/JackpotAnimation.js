@@ -13,7 +13,7 @@ export default function JackpotAnimation() {
   return (
     <JackpotAnimationWrapperStyled>
       <video autoPlay muted loop>
-        <source src='video/jackpot-coins.mp4' type="video/mp4" />
+        <source src='video/jackpot-coins-new.mp4' type="video/mp4" />
       </video>
       <JackpotAnimationTitleWrapperStyled>
         <JackpotAnimationTitleStyled>JACKPOT</JackpotAnimationTitleStyled>

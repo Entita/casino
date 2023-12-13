@@ -125,7 +125,7 @@ export const JackpotWrapperStyled = styled.div`
           ${JackpotAmountStyled} {
             background-image: url('images/bronze.png');
             font-size: 56px;
-            min-width: 400px;
+            min-width: 420px;
             @media (min-height: 1400px) {
               font-size: 76px;
               min-width: 500px;

@@ -38,7 +38,7 @@ export default function App() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       fetchData()
-    }, 2000)
+    }, 15000)
     fetchData()
 
     return () => clearTimeout(interval)

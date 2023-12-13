@@ -8,7 +8,7 @@ export default function SpecialJackpot({ minBet, amount, prevAmount, type }) {
     <SpecialJackpotWrapperStyled>
       <SpecialJackpotTitleStyled>{`${type} JACKPOT`}</SpecialJackpotTitleStyled>
       <SpecialJackpotAmountStyled type={type}>
-        <CountUp start={prevAmount} end={amount} duration={2} decimals={2} suffix=' CZK' />
+        <CountUp start={prevAmount} end={amount} duration={15} decimals={2} suffix=' CZK' useEasing={false} />
       </SpecialJackpotAmountStyled>
       <MinBetWrapperStyled>
         <MinBetTextStyled>MIN.BET</MinBetTextStyled>
