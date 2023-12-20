@@ -14,12 +14,12 @@ const glow = (opacity) => keyframes`
     opacity: ${opacity};
     filter: unset;
   }
-  .5% {
+  1% {
     scale: 1;
     opacity: .6;
     filter: blur(2px);
   }
-  1% {
+  2% {
     scale: .8;
     opacity: ${opacity};
     filter: unset;
@@ -43,11 +43,15 @@ export const BackgroundStyled = styled.div`
   .symbol {
     position: fixed;
     z-index: 1;
+    opacity: 0.05;
+  }
+
+  .symbol.center {
     opacity: 0.02;
   }
 
   .glow {
-    animation: ${glow(0.02)} 180s linear infinite;
+    animation: ${glow(0.05)} 150s linear infinite;
   }
 
   .spade {

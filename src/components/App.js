@@ -85,8 +85,10 @@ export default function App() {
         else element = createHeart(styles)
 
         if (isOutsideOfCircle) {
-          element.style.animationDelay = `${Math.random() * 180}s`
+          element.style.animationDelay = `${Math.random() * 150}s`
           element.classList.add('glow')
+        } else {
+          element.classList.add('center')
         }
         backgroundRef.current.appendChild(element)
       }
