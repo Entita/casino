@@ -47,7 +47,7 @@ export const BackgroundStyled = styled.div`
   }
 
   .glow {
-    animation: ${glow(0.02)} 360s linear infinite;
+    animation: ${glow(0.02)} 180s linear infinite;
   }
 
   .spade {

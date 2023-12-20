@@ -85,13 +85,12 @@ export default function App() {
         else element = createHeart(styles)
 
         if (isOutsideOfCircle) {
-          element.style.animationDelay = `${random * 360}s`
+          element.style.animationDelay = `${Math.random() * 180}s`
           element.classList.add('glow')
         }
         backgroundRef.current.appendChild(element)
       }
     }
-
   }
 
   React.useEffect(() => {
