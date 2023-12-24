@@ -6,6 +6,20 @@ export const WrapperStyled = styled.div`
   justify-content: center;
   align-items: center;
   height: 95vh;
+
+  & > button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    padding: .4rem 1rem;
+    border-radius: 4px;
+    background-color: red;
+    color: whitesmoke;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 2px solid black;
+    cursor: pointer;
+  }
 `;
 
 const glow = (opacity) => keyframes`

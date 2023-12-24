@@ -47,6 +47,7 @@ const createClub = (styles) => {
 export default function App() {
   const [data, setData] = React.useState({})
   const [prevData, setPrevData] = React.useState({})
+  const [showJackpot, setShowJackpot] = React.useState(false)
   const footerRef = React.useRef(null)
   const backgroundRef = React.useRef(null)
 
@@ -113,7 +114,8 @@ export default function App() {
 
   return (
     <WrapperStyled>
-      {/* <JackpotAnimation /> */}
+      <JackpotAnimation showJackpot={showJackpot} setShowJackpot={setShowJackpot} />
+      <button onClick={() => setShowJackpot(true)}>HIT jackpot</button>
       <BackgroundStyled ref={backgroundRef} />
       {Object.keys(data).length > 0 && (
       <>
