@@ -31,22 +31,22 @@ export async function POST(req) {
     url: casinoUrl,
   })
 
-  const jackpots = data?.data?.history
-  if (lastJackpot !== null) {
-    const indexOfLastJackpot = getIndexOfJackpot(jackpots, lastJackpot)
-    console.log(jackpots, lastJackpot, indexOfLastJackpot)
+  var jackpots = data?.data
+  const jackpotsHistory = jackpots?.history
+  if (lastJackpot !== null && jackpotsHistory) {
+    const indexOfLastJackpot = getIndexOfJackpot(jackpotsHistory, lastJackpot)
     if (indexOfLastJackpot > 0) {
       for (let i = 0; i < indexOfLastJackpot; i++) {
-        console.log('added jackpot', data.data.history, data.data.history[i])
         await createJackpot({
-          jackpot: JSON.stringify(data.data.history[i])
+          jackpot: data.data.history[i]
         });
       }
-      lastJackpot = jackpots[0]
+      jackpots.jackpot = jackpotsHistory[0]
+      lastJackpot = jackpotsHistory[0]
     }
   } else {
-    lastJackpot = jackpots[0]
+    if (jackpotsHistory) lastJackpot = jackpotsHistory[0]
   }
 
-  return NextResponse.json(data?.data)
+  return NextResponse.json(jackpots)
 }
