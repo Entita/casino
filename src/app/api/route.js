@@ -38,7 +38,7 @@ export async function POST(req) {
     if (indexOfLastJackpot > 0) {
       for (let i = 0; i < indexOfLastJackpot; i++) {
         await createJackpot({
-          jackpot: data.data.history[i]
+          jackpot: JSON.stringify(data.data.history[i])
         });
       }
       jackpots.jackpot = jackpotsHistory[0]
