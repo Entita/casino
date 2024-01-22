@@ -41,7 +41,7 @@ export async function POST(req) {
           jackpot: JSON.stringify(data.data.history[i])
         });
       }
-      jackpots.jackpot = jackpotsHistory[0]
+      jackpots.newJackpot = jackpotsHistory[0]
       lastJackpot = jackpotsHistory[0]
     }
   } else {

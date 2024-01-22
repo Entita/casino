@@ -60,6 +60,8 @@ export default function App() {
       }
     }).then(({ data }) =>
       setData((oldData) => {
+        if (data.newJackpot) console.log('new', data.newJackpot, new Date())
+        if (Object.keys(data.jackpot).length > 0 || (Array.isArray(data.jackpot) && data.jackpot.length > 0)) console.log('old', data.jackpot, new Date())
         setPrevData(oldData)
         return data
       })
