@@ -47,7 +47,7 @@ const createClub = (styles) => {
 export default function App() {
   const [data, setData] = React.useState({})
   const [prevData, setPrevData] = React.useState({})
-  const [showJackpot, setShowJackpot] = React.useState(false)
+  const [lastJackpot, setLastJackpot] = React.useState({})
   const footerRef = React.useRef(null)
   const backgroundRef = React.useRef(null)
 
@@ -60,8 +60,10 @@ export default function App() {
       }
     }).then(({ data }) =>
       setData((oldData) => {
-        if (data.newJackpot) console.log('new', data.newJackpot, new Date())
-        if (Object.keys(data.jackpot).length > 0 || (Array.isArray(data.jackpot) && data.jackpot.length > 0)) console.log('old', data.jackpot, new Date())
+        if (data.newJackpot) {
+          console.log('new jackpot', data.newJackpot)
+          setLastJackpot(data.newJackpot)
+        }
         setPrevData(oldData)
         return data
       })
@@ -116,8 +118,7 @@ export default function App() {
 
   return (
     <WrapperStyled>
-      <JackpotAnimation showJackpot={showJackpot} setShowJackpot={setShowJackpot} />
-      <button onClick={() => setShowJackpot(true)}>HIT jackpot</button>
+      <JackpotAnimation lastJackpot={lastJackpot} setLastJackpot={setLastJackpot} />
       <BackgroundStyled ref={backgroundRef} />
       {Object.keys(data).length > 0 && (
       <>
