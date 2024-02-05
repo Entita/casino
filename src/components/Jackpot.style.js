@@ -14,7 +14,7 @@ export const JackpotAmountStyled = styled.h4`
   text-transform: uppercase;
   background-position: center;
   background-size: cover;
-  font-family: 'Montserrat', sans-serif;
+  font-family: monospace;
   margin: 0;
 
   @media (min-width: 2000px) {
@@ -72,10 +72,8 @@ export const JackpotWrapperStyled = styled.div`
           ${JackpotAmountStyled} {
             background-image: url('images/gold.png');
             font-size: 72px;
-            min-width: 650px;
             @media (min-height: 1400px) {
               font-size: 96px;
-              min-width: 850px;
             }
           }
           ${MinBetWrapperStyled} {
@@ -99,10 +97,8 @@ export const JackpotWrapperStyled = styled.div`
           ${JackpotAmountStyled} {
             background-image: url('images/silver.png');
             font-size: 64px;
-            min-width: 500px;
             @media (min-height: 1400px) {
               font-size: 86px;
-              min-width: 650px;
             }
           }
           ${MinBetWrapperStyled} {
@@ -125,10 +121,8 @@ export const JackpotWrapperStyled = styled.div`
           ${JackpotAmountStyled} {
             background-image: url('images/bronze.png');
             font-size: 56px;
-            min-width: 420px;
             @media (min-height: 1400px) {
               font-size: 76px;
-              min-width: 500px;
             }
           }
           ${MinBetWrapperStyled} {
