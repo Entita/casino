@@ -6,6 +6,7 @@ const jackpotSchema = new Schema(
     jackpot: {
       type: String,
       required: true,
+      unique: true,
     },
   },
   { timestamps: true },
