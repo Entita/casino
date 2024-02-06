@@ -49,26 +49,43 @@ export async function POST(req) {
     var jackpots = data?.data
     const jackpotsHistory = jackpots?.history
     const jackpotsHistoryDB = (await findAllMongo(Jackpot)).map((jackpot => JSON.parse(jackpot.jackpot || {})))
+    if (!jackpotsHistoryDB) return NextResponse.json({ ...jackpots, controls })
+
+    const historySettings = {
+      gold: 2,
+      silver: 4,
+      bronze: 5,
+    }
+    const history = {}
+    for (const type in historySettings) {
+      const numberToFind = historySettings[type]
+      const typeJackpotsDB = jackpotsHistoryDB.reverse().filter((jackpotHistoryDB) => jackpotHistoryDB['sql_jp_name'].toLowerCase() === type)
+      for (let i = 0; i < numberToFind; i++) {
+        if (!typeJackpotsDB[i]) continue
+        if (!history[type]) {
+          history[type] = [typeJackpotsDB[i]]
+        } else {
+          history[type].push(typeJackpotsDB[i])
+        }
+      }
+    }
+    jackpots.customHistory = history
     jackpotsHistoryDB.sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
 
     if (lastJackpot !== null) {
       const indexOfLastJackpot = getIndexOfJackpot(jackpotsHistory, lastJackpot)
       if (indexOfLastJackpot > 0) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
-            await createJackpot({
-              jackpot: JSON.stringify(jackpotsHistory[i])
-            })
-          }
+          await createJackpot({
+            jackpot: JSON.stringify(jackpotsHistory[i])
+          })
         }
         jackpots.newJackpot = jackpotsHistory[0]
       } else if (indexOfLastJackpot === -1) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
-            await createJackpot({
-              jackpot: JSON.stringify(jackpotsHistory[i])
-            })
-          }
+          await createJackpot({
+            jackpot: JSON.stringify(jackpotsHistory[i])
+          })
         }
       }
       lastJackpot = jackpotsHistory[0]
@@ -76,19 +93,15 @@ export async function POST(req) {
       const databaseIndex = getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[0])
       if (databaseIndex === -1) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
-            await createJackpot({
-              jackpot: JSON.stringify(jackpotsHistory[i])
-            })
-          }
+          await createJackpot({
+            jackpot: JSON.stringify(jackpotsHistory[i])
+          })
         }
       } else {
         for (let i = 0; i < databaseIndex; i++) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
-            await createJackpot({
-              jackpot: JSON.stringify(jackpotsHistoryDB[i])
-            })
-          }
+          await createJackpot({
+            jackpot: JSON.stringify(jackpotsHistoryDB[i])
+          })
         }
       }
       lastJackpot = jackpotsHistory[0]
