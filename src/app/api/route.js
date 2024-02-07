@@ -93,15 +93,19 @@ export async function POST(req) {
       const databaseIndex = getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[0])
       if (databaseIndex === -1) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
+            await createJackpot({
+              jackpot: JSON.stringify(jackpotsHistory[i])
+            })
+          }
         }
       } else {
         for (let i = 0; i < databaseIndex; i++) {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistoryDB[i])
-          })
+          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistoryDB[i]) === -1) {
+            await createJackpot({
+              jackpot: JSON.stringify(jackpotsHistoryDB[i])
+            })
+          }
         }
       }
       lastJackpot = jackpotsHistory[0]

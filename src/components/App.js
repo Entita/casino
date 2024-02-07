@@ -13,6 +13,7 @@ import Jackpot from './Jackpot'
 import SpecialJackpot from './SpecialJackpot'
 import WinShowcase from './WinShowcase'
 import JackpotAnimation from './JackpotAnimation'
+import JackpotHistory from './JackpotHistory'
 import Background from './Background'
 
 export default function App() {
@@ -52,6 +53,7 @@ export default function App() {
   return (
     <WrapperStyled>
       <JackpotAnimation lastJackpot={lastJackpot} setLastJackpot={setLastJackpot} />
+      {/* <JackpotHistory /> */}
       <Background />
       {Object.keys(data).length > 0 && (
       <>
