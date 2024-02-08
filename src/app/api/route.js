@@ -48,7 +48,7 @@ export async function POST(req) {
 
     var jackpots = data?.data
     const jackpotsHistory = jackpots?.history
-    const jackpotsHistoryDB = (await findAllMongo(Jackpot)).map((jackpot => JSON.parse(jackpot.jackpot || {})))
+    const jackpotsHistoryDB = (await findAllMongo(Jackpot))?.map((jackpot => JSON.parse(jackpot.jackpot || {})))
     if (!jackpotsHistoryDB) return NextResponse.json({ ...jackpots, controls })
 
     const historySettings = {
@@ -68,6 +68,7 @@ export async function POST(req) {
           history[type].push(typeJackpotsDB[i])
         }
       }
+      if (history[type]) history[type].sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
     }
     jackpots.customHistory = history
     jackpotsHistoryDB.sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
@@ -76,16 +77,24 @@ export async function POST(req) {
       const indexOfLastJackpot = getIndexOfJackpot(jackpotsHistory, lastJackpot)
       if (indexOfLastJackpot > 0) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          try {
+            await createJackpot({
+              jackpot: JSON.stringify(jackpotsHistory[i])
+            })
+          } catch {
+            continue
+          }
         }
         jackpots.newJackpot = jackpotsHistory[0]
       } else if (indexOfLastJackpot === -1) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          try {
+            await createJackpot({
+              jackpot: JSON.stringify(jackpotsHistory[i])
+            })
+          } catch {
+            continue
+          }
         }
       }
       lastJackpot = jackpotsHistory[0]
@@ -93,18 +102,22 @@ export async function POST(req) {
       const databaseIndex = getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[0])
       if (databaseIndex === -1) {
         for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistory[i]) === -1) {
+          try {
             await createJackpot({
               jackpot: JSON.stringify(jackpotsHistory[i])
             })
+          } catch {
+            continue
           }
         }
       } else {
         for (let i = 0; i < databaseIndex; i++) {
-          if (getIndexOfJackpot(jackpotsHistoryDB, jackpotsHistoryDB[i]) === -1) {
+          try {
             await createJackpot({
               jackpot: JSON.stringify(jackpotsHistoryDB[i])
             })
+          } catch {
+            continue
           }
         }
       }

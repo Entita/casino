@@ -21,6 +21,7 @@ export default function App() {
   const [prevData, setPrevData] = React.useState({})
   const [lastJackpot, setLastJackpot] = React.useState({})
   const footerRef = React.useRef(null)
+  const refreshDataSeconds = React.useMemo(() => data ? data.controls?.refreshData : 15, [data])
 
   const fetchData = async () => {
     await axios({
@@ -32,7 +33,6 @@ export default function App() {
     }).then(({ data }) =>
       setData((oldData) => {
         if (data.newJackpot) {
-          console.log('new jackpot', data.newJackpot)
           setLastJackpot(data.newJackpot)
         }
         setPrevData(oldData)
@@ -44,34 +44,34 @@ export default function App() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       fetchData()
-    }, 15000)
+    }, refreshDataSeconds * 1000)
     fetchData()
 
     return () => clearTimeout(interval)
-  }, [])
+  }, [refreshDataSeconds])
 
   return (
     <WrapperStyled>
       <JackpotAnimation lastJackpot={lastJackpot} setLastJackpot={setLastJackpot} />
-      {/* <JackpotHistory /> */}
+      <JackpotHistory controls={data.controls} jackpots={data.customHistory} />
       <Background />
       {Object.keys(data).length > 0 && (
       <>
         <JackpotsWrapperStyled>
           <NormalJackpotsWrapperStyled>
-            {data.controls.gold.enable && <Jackpot
+            {data.controls?.gold?.enable && <Jackpot
               type='gold'
               amount={data.current.gold.jackpot}
               prevAmount={prevData?.current?.gold?.jackpot || 0}
               minBet={data.controls.gold.min}
             />}
-            {data.controls.silver.enable && <Jackpot
+            {data.controls?.silver?.enable && <Jackpot
               type='silver'
               amount={data.current.silver.jackpot}
               prevAmount={prevData?.current?.silver?.jackpot || 0}
               minBet={data.controls.silver.min}
             />}
-            {data.controls.bronze.enable && <Jackpot
+            {data.controls?.bronze?.enable && <Jackpot
               type='bronze'
               amount={data.current.bronze.jackpot}
               prevAmount={prevData?.current?.bronze?.jackpot || 0}
@@ -79,13 +79,13 @@ export default function App() {
             />}
           </NormalJackpotsWrapperStyled>
           <SpecialJackpotsWrapperStyled>
-            {data.controls.red.enable && <SpecialJackpot
+            {data.controls?.red?.enable && <SpecialJackpot
               type='red'
               amount={data.current.red.jackpot}
               prevAmount={prevData?.current?.red?.jackpot || 0}
               minBet={data.controls.red.min}
             />}
-            {data.controls.green.enable && <SpecialJackpot
+            {data.controls?.green?.enable && <SpecialJackpot
               type='green'
               amount={data.current.green.jackpot}
               prevAmount={prevData?.current?.green?.jackpot || 0}

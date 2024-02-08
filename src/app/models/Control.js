@@ -3,6 +3,18 @@ const Schema = mongoose.Schema;
 
 const controlSchema = new Schema(
   {
+    refreshData: {
+      type: Number,
+      default: 15,
+    },
+    lastJackpotsShow: {
+      type: Number,
+      default: 90,
+    },
+    lastJackpotsHold: {
+      type: Number,
+      default: 10,
+    },
     gold: {
       enable: {
         type: Boolean,

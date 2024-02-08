@@ -42,7 +42,7 @@ export const findMongo = async (collection, filter = {}) => {
 export const findAllMongo = async (collection, filter = {}) => {
   return await collection
     .find(filter)
-    .limit(500)
+    .limit(1000)
     .then((data) => data)
     .catch(() => null)
 }

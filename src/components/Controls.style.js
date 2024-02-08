@@ -34,6 +34,10 @@ export const WrapperStyled = styled.div`
     gap: 8px;
   }
 
+  div > label {
+    justify-content: space-between;
+  }
+
   .MuiInputBase-colorPrimary::before {
     border-color: whitesmoke!important;
   }
