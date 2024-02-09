@@ -23,6 +23,8 @@ export default function App() {
   const footerRef = React.useRef(null)
   const refreshDataSeconds = React.useMemo(() => data ? data.controls?.refreshData : 15, [data])
 
+  console.log(refreshDataSeconds)
+
   const fetchData = async () => {
     await axios({
       method: 'POST',
