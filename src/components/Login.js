@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Controls from './Controls'
+import { toast } from 'react-toastify'
 import { WrapperStyled } from './Login.style'
 import Background from './Background'
 
@@ -26,6 +27,7 @@ export default function Login() {
 
   const fetchAccount = async () => {
     if (!usernameRef || !usernameRef.current || !passwordRef || !passwordRef.current) return
+    const toastId = toast.loading('Ověřování údajů...')
 
     setError('')
     await axios({
@@ -36,11 +38,14 @@ export default function Login() {
         password: passwordRef.current.value,
       }
     }).then(({ data }) => {
-      if (data) setLoggedIn(true)
-      else setError('Chybně zadané údaje !')
+      if (data) {
+        toast.update(toastId, { render: 'Úspěšně přihlášen!', type: 'success', isLoading: false, autoClose: 3000 })
+        setLoggedIn(true)
+      }
+      else toast.update(toastId, { render: 'Chybně zadané údaje!', type: 'error', isLoading: false, autoClose: 3000 })
     })
     .catch(() => {
-      setError('Chyba se spojením se serverem!')
+      toast.update(toastId, { render: 'Chyba se spojením se serverem!', type: 'error', isLoading: false, autoClose: 3000 })
     })
   }
 

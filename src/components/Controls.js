@@ -18,7 +18,7 @@ export default function Controls() {
       }
     })
     .then(({ data }) => {
-      toast.update(toastId, { render: 'Nastavení úspěšně získáno!', type: 'success', isLoading: false })
+      toast.update(toastId, { render: 'Nastavení úspěšně získáno!', type: 'success', isLoading: false, autoClose: 3000 })
       setControls(data)
       window.localStorage.setItem('controls', JSON.stringify({
         loggedIn: true,
@@ -26,7 +26,7 @@ export default function Controls() {
       }))
     })
     .catch(() => {
-      toast.update(toastId, { render: 'Chyba se spojením se serverem!', type: 'error', isLoading: false })
+      toast.update(toastId, { render: 'Chyba se spojením se serverem!', type: 'error', isLoading: false, autoClose: 3000 })
     })
   }
 
@@ -41,7 +41,7 @@ export default function Controls() {
       }
     }).then((data) => {
       if (data) {
-        toast.update(toastId, { render: 'Nastavení úspěšně nahráno!', type: 'success', isLoading: false })
+        toast.update(toastId, { render: 'Nastavení úspěšně nahráno!', type: 'success', isLoading: false, autoClose: 3000 })
         setControls(newControls)
         window.localStorage.setItem('controls', JSON.stringify({
           loggedIn: true,

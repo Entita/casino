@@ -37,10 +37,10 @@ export default function App() {
         setPrevData(oldData)
         return data
       })
-      if (!data.controls) toast.error('Chyba při načtení ovládání z databáze!')
+      if (!data.controls) toast.error('Chyba při načtení ovládání z databáze!', { autoClose: 3000 })
     })
     .catch(() => {
-      toast.error('Chyba se spojením se serverem!')
+      toast.error('Chyba se spojením se serverem!', { autoClose: 3000 })
     })
   }
 
