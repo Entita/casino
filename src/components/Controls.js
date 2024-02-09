@@ -69,27 +69,25 @@ export default function Controls() {
             <FormControlLabel control={<Input value={controls['refreshData']} onChange={({ target }) => changeControls({ ...controls, 'refreshData': parseInt(target.value)})} />} label='Každých x vteřin obnovení dat' />
             <FormControlLabel control={<Input value={controls['lastJackpotsShow']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsShow': parseInt(target.value)})} />} label='Každých x vteřin zobrazit poslední jackpoty' />
             <FormControlLabel control={<Input value={controls['lastJackpotsHold']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsHold': parseInt(target.value)})} />} label='Poslední jackpoty se zobrazují x vteřin' />
-            {Object.keys(controls).map(type => {
-              if (type !== 'gold' && type !== 'silver' && type !== 'bronze' && type !== 'red' && type !== 'green') return <React.Fragment key={type} />
+            <div>
+              {Object.keys(controls).map(type => {
+                if (type !== 'gold' && type !== 'silver' && type !== 'bronze' && type !== 'red' && type !== 'green') return <React.Fragment key={type} />
 
-              return (
-                <div key={type}>
-                  <h3>{type}</h3>
-                  <div>
-                    <FormControlLabel control={<Switch color='primary' checked={controls[type].enable} onChange={({ target }) => {
-                      const newControls = { ...controls, [type]: { ...controls[type], 'enable': target.checked } }
-                      changeControls(newControls)
-                    }} />} label={controls[type].enable ? 'Zapnuto' : 'Vypnuto'} />
-                    <FormControlLabel control={<Input value={controls[type].min} onChange={({ target }) => {
-                      if (parseFloat(target.value) > 0) {
-                        const newControls = { ...controls, [type]: { ...controls[type], 'min': parseFloat(target.value) } }
-                        changeControls(newControls)
-                      }
-                    }} />} label='Minimální částka' />
+                return (
+                  <div key={type}>
+                    <h3>{type}</h3>
+                    <div>
+                      <FormControlLabel control={<Input value={controls[type].min} onChange={({ target }) => {
+                        if (parseFloat(target.value) > 0) {
+                          const newControls = { ...controls, [type]: { ...controls[type], 'min': parseFloat(target.value) } }
+                          changeControls(newControls)
+                        }
+                      }} />} label='Minimální částka' />
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </>
         )}
       </FormGroup>

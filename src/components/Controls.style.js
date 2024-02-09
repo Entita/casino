@@ -38,6 +38,18 @@ export const WrapperStyled = styled.div`
     justify-content: space-between;
   }
 
+  .MuiInputBase-colorPrimary:hover:not(.Mui-disabled, .Mui-error):before {
+    border-color: grey!important;
+  }
+
+  .MuiInputBase-colorPrimary::after {
+    border-color: black!important;
+  }
+
+  .MuiInputBase-colorPrimary::before {
+    border-color: whitesmoke!important;
+  }
+
   .MuiInputBase-colorPrimary::before {
     border-color: whitesmoke!important;
   }
@@ -47,6 +59,13 @@ export const WrapperStyled = styled.div`
   }
 
   & > div > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  & > div > div > div {
     display: flex;
     flex-direction: column;
 
@@ -60,7 +79,7 @@ export const WrapperStyled = styled.div`
     }
   }
 
-  & > div > div > div {
+  & > div > div > div > div {
     display: flex;
     justify-content: space-between;
   }

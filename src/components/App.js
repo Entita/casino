@@ -62,38 +62,38 @@ export default function App() {
       <>
         <JackpotsWrapperStyled>
           <NormalJackpotsWrapperStyled>
-            {data.controls?.gold?.enable && <Jackpot
+            {parseInt(data.current.gold.running) ? <Jackpot
               type='gold'
               amount={data.current.gold.jackpot}
               prevAmount={prevData?.current?.gold?.jackpot || 0}
               minBet={data.controls.gold.min}
-            />}
-            {data.controls?.silver?.enable && <Jackpot
+            /> : <></>}
+            {parseInt(data.current.silver.running) ? <Jackpot
               type='silver'
               amount={data.current.silver.jackpot}
               prevAmount={prevData?.current?.silver?.jackpot || 0}
               minBet={data.controls.silver.min}
-            />}
-            {data.controls?.bronze?.enable && <Jackpot
+            /> : <></>}
+            {parseInt(data.current.bronze.running) ? <Jackpot
               type='bronze'
               amount={data.current.bronze.jackpot}
               prevAmount={prevData?.current?.bronze?.jackpot || 0}
               minBet={data.controls.bronze.min}
-            />}
+            /> : <></>}
           </NormalJackpotsWrapperStyled>
           <SpecialJackpotsWrapperStyled>
-            {data.controls?.red?.enable && <SpecialJackpot
+            {parseInt(data.current.red.running) ? <SpecialJackpot
               type='red'
               amount={data.current.red.jackpot}
               prevAmount={prevData?.current?.red?.jackpot || 0}
               minBet={data.controls.red.min}
-            />}
-            {data.controls?.green?.enable && <SpecialJackpot
+            /> : <></>}
+            {parseInt(data.current.green.running) ? <SpecialJackpot
               type='green'
               amount={data.current.green.jackpot}
               prevAmount={prevData?.current?.green?.jackpot || 0}
               minBet={data.controls.green.min}
-            />}
+            /> : <></>}
           </SpecialJackpotsWrapperStyled>
         </JackpotsWrapperStyled>
         <FooterWrapperStyled>
