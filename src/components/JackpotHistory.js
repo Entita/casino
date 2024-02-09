@@ -13,7 +13,7 @@ export default function JackpotHistory({ controls = {}, jackpots = {} }) {
       setClassName('show')
       setTimeout(() => {
         setClassName('')
-      }, holdJackpotsSeconds * 1000)
+      }, holdJackpotsSeconds * 1000 + 1600)
     }, showJackpotsSeconds * 1000)
 
     return () => clearTimeout(interval)
