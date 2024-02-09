@@ -5,8 +5,8 @@ import { WinShowcaseTypeStyled } from './WinShowcase.style'
 
 export default function JackpotHistory({ controls = {}, jackpots = {} }) {
   const [className, setClassName] = React.useState('')
-  const showJackpotsSeconds = React.useMemo(() => controls ? controls.lastJackpotsShow : 90, [controls])
-  const holdJackpotsSeconds = React.useMemo(() => controls ? controls.lastJackpotsHold : 10, [controls])
+  const showJackpotsSeconds = React.useMemo(() => controls.lastJackpotsShow || 90, [controls])
+  const holdJackpotsSeconds = React.useMemo(() => controls.lastJackpotsHold || 10, [controls])
 
   React.useEffect(() => {
     const interval = setInterval(() => {

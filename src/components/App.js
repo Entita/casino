@@ -21,9 +21,7 @@ export default function App() {
   const [prevData, setPrevData] = React.useState({})
   const [lastJackpot, setLastJackpot] = React.useState({})
   const footerRef = React.useRef(null)
-  const refreshDataSeconds = React.useMemo(() => data ? data.controls?.refreshData : 15, [data])
-
-  console.log(refreshDataSeconds)
+  const refreshDataSeconds = React.useMemo(() => data?.controls ? data.controls?.refreshData : 15, [data?.controls])
 
   const fetchData = async () => {
     await axios({
