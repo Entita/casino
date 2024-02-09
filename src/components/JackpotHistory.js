@@ -29,12 +29,12 @@ export default function JackpotHistory({ controls = {}, jackpots = {} }) {
             <React.Fragment key={index}>
               {jackpotGroup.map((jackpot, index2) => {
                 return (
-                  <JackpotWrapperStyled key={index2}>
-                    <WinShowcaseTypeStyled type={jackpot.sql_jp_name.toLowerCase()}>{jackpot.sql_jp_name}</WinShowcaseTypeStyled>
+                  <React.Fragment key={index2}>
                     <span>{jackpot.sql_inserted}</span>
-                    <span>{jackpot.sql_machine}</span>
-                    <span>{`${amountFormatter(jackpot.jackpot)} CZK`}</span>
-                  </JackpotWrapperStyled>
+                    <span>{jackpot.sql_bar}</span>
+                    <span>{`${amountFormatter(jackpot.jackpot).split('.')[0].replaceAll(',', ' ')} CZK`}</span>
+                    <WinShowcaseTypeStyled type={jackpot.sql_jp_name.toLowerCase()}>{jackpot.sql_jp_name}</WinShowcaseTypeStyled>
+                  </React.Fragment>
                 )
               })}
             </React.Fragment>
