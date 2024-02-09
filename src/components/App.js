@@ -25,11 +25,8 @@ export default function App() {
 
   const fetchData = async () => {
     await axios({
-      method: 'POST',
-      url: '/api',
-      data: {
-        query: window.location.search
-      }
+      method: 'GET',
+      url: '/api'
     }).then(({ data }) =>
       setData((oldData) => {
         if (data.newJackpot) {

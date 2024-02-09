@@ -31,7 +31,6 @@ export default function Controls() {
       method: 'POST',
       url: '/api',
       data: {
-        type: 'controls',
         method: 'post',
         newControls,
       }

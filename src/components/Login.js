@@ -44,6 +44,10 @@ export default function Login() {
     })
   }
 
+  const handleEnterKey = (event) => {
+    if (event.key === 'Enter') fetchAccount()
+  }
+
   React.useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage.getItem('controls')) {
       const controls = JSON.parse(window.localStorage.getItem('controls'))
@@ -55,6 +59,9 @@ export default function Login() {
         window.localStorage.removeItem('controls')
       }
     }
+
+    window.addEventListener('keydown', handleEnterKey)
+    return () => window.removeEventListener('keydown', handleEnterKey)
   }, [])
 
   React.useEffect(() => {
