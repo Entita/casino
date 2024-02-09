@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import { FormControlLabel, FormGroup, Input, Switch } from '@mui/material'
+import { toast } from 'react-toastify'
 import { WrapperStyled } from './Controls.style'
 
 export default function Controls() {
   const [controls, setControls] = React.useState({})
 
   const fetchControls = async () => {
+    const toastId = toast.loading('Kontaktování serveru a přepisování databáze ...')
     await axios({
       method: 'POST',
       url: '/api',
@@ -14,7 +16,9 @@ export default function Controls() {
         type: 'controls',
         method: 'get',
       }
-    }).then(({ data }) => {
+    })
+    .then(({ data }) => {
+      toast.update(toastId, { render: 'Nastavení úspěšně nahráno!', type: 'success', isLoading: false })
       setControls(data)
       window.localStorage.setItem('controls', JSON.stringify({
         loggedIn: true,
@@ -22,7 +26,7 @@ export default function Controls() {
       }))
     })
     .catch(() => {
-      console.error('Chyba se spojením se serverem!')
+      toast.update(toastId, { render: 'Chyba se spojením se serverem!', type: 'error', isLoading: false })
     })
   }
 

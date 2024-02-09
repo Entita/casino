@@ -9,6 +9,7 @@ import {
   ShowcaseContainerWrapperStyled,
   FooterBackgroundStyled,
 } from './App.style'
+import { toast } from 'react-toastify'
 import Jackpot from './Jackpot'
 import SpecialJackpot from './SpecialJackpot'
 import WinShowcase from './WinShowcase'
@@ -27,7 +28,8 @@ export default function App() {
     await axios({
       method: 'GET',
       url: '/api'
-    }).then(({ data }) =>
+    })
+    .then(({ data }) => {
       setData((oldData) => {
         if (data.newJackpot) {
           setLastJackpot(data.newJackpot)
@@ -35,7 +37,11 @@ export default function App() {
         setPrevData(oldData)
         return data
       })
-    )
+      if (!data.controls) toast.error('Chyba při načtení ovládání z databáze!')
+    })
+    .catch(() => {
+      toast.error('Chyba se spojením se serverem!')
+    })
   }
 
   React.useEffect(() => {

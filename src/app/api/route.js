@@ -58,7 +58,6 @@ export async function GET() {
     }
     if (history[type]) history[type].sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
   }
-  jackpots.customHistory = history
   jackpotsHistoryDB.sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
 
   if (lastJackpot !== null) {
@@ -112,7 +111,11 @@ export async function GET() {
     lastJackpot = jackpotsHistory[0]
   }
 
-  return NextResponse.json({ ...jackpots, controls })
+  return NextResponse.json({
+    ...jackpots,
+    customHistory: history,
+    controls: controls || {},
+  })
 }
 
 export async function POST(req) {
