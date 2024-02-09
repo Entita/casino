@@ -8,7 +8,7 @@ export default function Controls() {
   const [controls, setControls] = React.useState({})
 
   const fetchControls = async () => {
-    const toastId = toast.loading('Kontaktování serveru a přepisování databáze ...')
+    const toastId = toast.loading('Čekání na server...')
     await axios({
       method: 'POST',
       url: '/api',
@@ -18,7 +18,7 @@ export default function Controls() {
       }
     })
     .then(({ data }) => {
-      toast.update(toastId, { render: 'Nastavení úspěšně nahráno!', type: 'success', isLoading: false })
+      toast.update(toastId, { render: 'Nastavení úspěšně získáno!', type: 'success', isLoading: false })
       setControls(data)
       window.localStorage.setItem('controls', JSON.stringify({
         loggedIn: true,
@@ -31,6 +31,7 @@ export default function Controls() {
   }
 
   const changeControls = async (newControls) => {
+    const toastId = toast.loading('Kontaktování serveru a přepisování databáze...')
     await axios({
       method: 'POST',
       url: '/api',
@@ -40,17 +41,18 @@ export default function Controls() {
       }
     }).then((data) => {
       if (data) {
+        toast.update(toastId, { render: 'Nastavení úspěšně nahráno!', type: 'success', isLoading: false })
         setControls(newControls)
         window.localStorage.setItem('controls', JSON.stringify({
           loggedIn: true,
           time: new Date(),
         }))
       } else {
-        console.error('Chyba při změny ovládání!')
+        toast.update(toastId, { render: 'Chyba při ukládání nastavení!', type: 'error', isLoading: false })
       }
     })
     .catch(() => {
-      console.error('Chyba se spojením se serverem!')
+      toast.update(toastId, { render: 'Chyba se spojením se serverem!', type: 'error', isLoading: false })
     })
   }
 
