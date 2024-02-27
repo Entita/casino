@@ -22,6 +22,8 @@ export const WrapperStyled = styled.div`
     padding-top: 1rem;
     gap: 1.4rem;
     border-top: 1px solid whitesmoke;
+    min-height: 510px;
+    justify-content: space-between;
   }
 
   input {
@@ -62,7 +64,7 @@ export const WrapperStyled = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding-top: 1rem;
+    padding-top: 3rem;
   }
 
   & > div > div > div {
@@ -82,5 +84,68 @@ export const WrapperStyled = styled.div`
   & > div > div > div > div {
     display: flex;
     justify-content: space-between;
+  }
+`
+
+export const NewJackpotWrapperStyled = styled.div`
+  svg {
+    cursor: pointer;
+    font-size: 48px;
+    transition: all .2s ease;
+  }
+
+  svg:hover {
+    filter: opacity(.6);
+  }
+
+  input {
+    width: auto;
+    min-width: 12rem!important;
+  }
+
+  label {
+    margin-left: unset!important;
+    margin-right: unset!important;
+  }
+`
+
+export const NewJackpotButtonsWrapperStyled = styled.div`
+  grid-template-columns: 1fr 1fr 1fr!important;
+  padding-top: 0!important;
+
+  button {
+    background-position: center!important;
+    background-size: cover!important;
+    padding: 4px 18px!important;
+    text-transform: uppercase!important;
+    font-size: 21px!important;
+    border: 2px solid black!important;
+    color: black!important;
+  }
+
+  button.selected {
+    filter: brightness(0.5);
+    border: 2px solid whitesmoke!important;
+  }
+
+  button:nth-child(1) {
+    background-image: url('images/gold.png');
+  }
+  button:nth-child(2) {
+    background-image: url('images/silver.png');
+  }
+  button:nth-child(3) {
+    background-image: url('images/bronze.png');
+  }
+`
+
+export const NewJackpotErrorsWrapperStyled = styled.div`
+  display: flex!important;
+  flex-direction: column!important;
+  padding-top: unset!important;
+  gap: 2px!important;
+
+  span {
+    color: salmon!important;
   }
 `

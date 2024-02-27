@@ -1,16 +1,30 @@
 import { NextResponse } from 'next/server'
 import axios from 'axios'
 import Jackpot from '@/app/models/Jackpot';
+import BronzeJackpot from '@/app/models/BronzeJackpot';
+import SilverJackpot from '@/app/models/SilverJackpot';
+import GoldJackpot from '@/app/models/GoldJackpot';
 import Account from '@/app/models/Account';
 import Control from '@/app/models/Control';
-import { dbConnect, findAllMongo, findMongo, updateMongo } from '@/utils/dbMongo'
+import { dbConnect, findAllMongo, findXMongo, findMongo, updateMongo } from '@/utils/dbMongo'
 import md5 from 'md5'
 
 dbConnect()
 
-const createJackpot = async (data) => {
-  return await Jackpot(data).save();
+const createJackpot = async (jackpotData, saveToAll = true) => {
+  const data = {jackpot: JSON.stringify(jackpotData)}
+  if (jackpotData.sql_jp_name.toLowerCase() === 'bronze') await BronzeJackpot({ ...data, date: jackpotData.sql_inserted }).save()
+  else if (jackpotData.sql_jp_name.toLowerCase() === 'silver') await SilverJackpot({ ...data, date: jackpotData.sql_inserted }).save()
+  else if (jackpotData.sql_jp_name.toLowerCase() === 'gold') await GoldJackpot({ ...data, date: jackpotData.sql_inserted }).save()
+  if (saveToAll) await Jackpot(data).save()
+  return true
 };
+
+const getJackpotCollection = (type) => {
+  if (type === 'bronze') return BronzeJackpot
+  else if (type === 'silver') return SilverJackpot
+  else if (type === 'gold') return GoldJackpot
+}
 
 let lastJackpot = null
 
@@ -47,16 +61,8 @@ export async function GET() {
   const history = {}
   for (const type in historySettings) {
     const numberToFind = historySettings[type]
-    const typeJackpotsDB = jackpotsHistoryDB.reverse().filter((jackpotHistoryDB) => jackpotHistoryDB['sql_jp_name'].toLowerCase() === type)
-    for (let i = 0; i < numberToFind; i++) {
-      if (!typeJackpotsDB[i]) continue
-      if (!history[type]) {
-        history[type] = [typeJackpotsDB[i]]
-      } else {
-        history[type].push(typeJackpotsDB[i])
-      }
-    }
-    if (history[type]) history[type].sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
+    const jackpotsDB = (await findXMongo(getJackpotCollection(type), numberToFind))?.map((jackpot => JSON.parse(jackpot.jackpot || {})))
+    history[type] = jackpotsDB
   }
   jackpotsHistoryDB.sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
 
@@ -65,9 +71,7 @@ export async function GET() {
     if (indexOfLastJackpot > 0) {
       for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
         try {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          await createJackpot(jackpotsHistory[i])
         } catch {
           continue
         }
@@ -76,9 +80,7 @@ export async function GET() {
     } else if (indexOfLastJackpot === -1) {
       for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
         try {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          await createJackpot(jackpotsHistory[i])
         } catch {
           continue
         }
@@ -90,9 +92,7 @@ export async function GET() {
     if (databaseIndex === -1) {
       for (let i = jackpotsHistory.length - 1; i >= 0; i--) {
         try {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistory[i])
-          })
+          await createJackpot(jackpotsHistory[i])
         } catch {
           continue
         }
@@ -100,9 +100,7 @@ export async function GET() {
     } else {
       for (let i = 0; i < databaseIndex; i++) {
         try {
-          await createJackpot({
-            jackpot: JSON.stringify(jackpotsHistoryDB[i])
-          })
+          await createJackpot(jackpotsHistoryDB[i])
         } catch {
           continue
         }
@@ -119,13 +117,16 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const { method, newControls } = await req.json()
+  const { method, newControls, jackpot } = await req.json()
   if (method === 'get') {
     const controls = await findMongo(Control)
     return NextResponse.json(controls)
   } else if (method === 'post') {
     const isUpdated = await updateMongo(Control, {}, newControls)
     return NextResponse.json(isUpdated)
+  } else if (method === 'put') {
+    const isSaved = await createJackpot(jackpot, false)
+    return NextResponse.json({ success: isSaved })
   }
 
   return NextResponse.json({})

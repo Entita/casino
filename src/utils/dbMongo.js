@@ -42,7 +42,16 @@ export const findMongo = async (collection, filter = {}) => {
 export const findAllMongo = async (collection, filter = {}) => {
   return await collection
     .find(filter)
-    .limit(1000)
+    .limit(100)
+    .then((data) => data)
+    .catch(() => null)
+}
+
+export const findXMongo = async (collection, limit, filter = {}) => {
+  return await collection
+    .find(filter)
+    .sort({ date: -1, createdAt: -1 })
+    .limit(limit)
     .then((data) => data)
     .catch(() => null)
 }

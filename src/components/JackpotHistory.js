@@ -20,7 +20,7 @@ export default function JackpotHistory({ controls = {}, jackpots = {} }) {
   }, [showJackpotsSeconds, holdJackpotsSeconds])
 
   return (
-    <WrapperStyled className={className}>
+    <WrapperStyled className={Object.keys(jackpots).length > 0 ? className : ''}>
       <JackpotStrip />
       <JackpotsWrapperStyled>
         {Object.keys(jackpots).map((type, index) => {
