@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Button, FormControlLabel, FormGroup, Input } from '@mui/material'
 import { toast } from 'react-toastify'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { NewJackpotButtonsWrapperStyled, NewJackpotErrorsWrapperStyled, NewJackpotWrapperStyled, WrapperStyled } from './Controls.style'
+import { CustomHistoryWrapperStyled, NewJackpotButtonsWrapperStyled, NewJackpotErrorsWrapperStyled, NewJackpotWrapperStyled, WrapperStyled } from './Controls.style'
 
 export default function Controls() {
   const [controls, setControls] = React.useState({})
@@ -136,6 +136,21 @@ export default function Controls() {
         <FormGroup>
           {Object.keys(controls).length > 0 && (
             <>
+              <h4>Zobrazit x posledních jackpotů</h4>
+              <CustomHistoryWrapperStyled>
+                <div>
+                  <h3>Gold</h3>
+                  <Input value={controls['lastJackpotsGold']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsGold': parseInt(target.value)})} />
+                </div>
+                <div>
+                  <h3>Silver</h3>
+                  <Input value={controls['lastJackpotsSilver']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsSilver': parseInt(target.value)})} />
+                </div>
+                <div>
+                  <h3>Bronze</h3>
+                  <Input value={controls['lastJackpotsBronze']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsBronze': parseInt(target.value)})} />
+                </div>
+              </CustomHistoryWrapperStyled>
               <FormControlLabel control={<Input value={controls['refreshData']} onChange={({ target }) => changeControls({ ...controls, 'refreshData': parseInt(target.value)})} />} label='Každých x vteřin obnovení dat' />
               <FormControlLabel control={<Input value={controls['lastJackpotsShow']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsShow': parseInt(target.value)})} />} label='Každých x vteřin zobrazit poslední jackpoty' />
               <FormControlLabel control={<Input value={controls['lastJackpotsHold']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsHold': parseInt(target.value)})} />} label='Poslední jackpoty se zobrazují x vteřin' />

@@ -11,6 +11,13 @@ export const WrapperStyled = styled.div`
     padding: 0 5rem;
   }
 
+  h4 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+  }
+
   span {
     color: whitesmoke!important;
   }
@@ -64,7 +71,7 @@ export const WrapperStyled = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding-top: 3rem;
+    padding-top: 2rem;
   }
 
   & > div > div > div {
@@ -148,4 +155,11 @@ export const NewJackpotErrorsWrapperStyled = styled.div`
   span {
     color: salmon!important;
   }
+`
+
+export const CustomHistoryWrapperStyled = styled.div`
+  padding-top: unset!important;
+  padding-bottom: 2rem;
+  grid-template-columns: 1fr 1fr 1fr!important;
+  text-align: center;
 `

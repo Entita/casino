@@ -54,15 +54,17 @@ export async function GET() {
   if (!jackpotsHistoryDB) return NextResponse.json({ ...jackpots, controls })
 
   const historySettings = {
-    gold: 2,
-    silver: 4,
-    bronze: 5,
+    gold: controls ? controls.lastJackpotsGold : 2,
+    silver: controls ? controls.lastJackpotsSilver : 4,
+    bronze: controls ? controls.lastJackpotsBronze : 5,
   }
   const history = {}
   for (const type in historySettings) {
     const numberToFind = historySettings[type]
-    const jackpotsDB = (await findXMongo(getJackpotCollection(type), numberToFind))?.map((jackpot => JSON.parse(jackpot.jackpot || {})))
-    history[type] = jackpotsDB
+    if (numberToFind > 0) {
+      const jackpotsDB = (await findXMongo(getJackpotCollection(type), numberToFind))?.map((jackpot => JSON.parse(jackpot.jackpot || {})))
+      history[type] = jackpotsDB
+    }
   }
   jackpotsHistoryDB.sort((a, b) => new Date(b.sql_inserted) - new Date(a.sql_inserted))
 

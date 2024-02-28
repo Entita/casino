@@ -15,6 +15,18 @@ const controlSchema = new Schema(
       type: Number,
       default: 10,
     },
+    lastJackpotsGold: {
+      type: Number,
+      default: 10,
+    },
+    lastJackpotsSilver: {
+      type: Number,
+      default: 10,
+    },
+    lastJackpotsBronze: {
+      type: Number,
+      default: 10,
+    },
     gold: {
       min: {
         type: Number,
