@@ -16,13 +16,6 @@ export const JackpotAmountStyled = styled.h4`
   background-size: cover;
   font-family: monospace;
   margin: 0;
-
-  @media (min-width: 2000px) {
-    padding-inline: 20vw;
-  }
-  @media (min-height: 1100px) {
-    padding-block: 2vh;
-  }
 `
 
 export const MinBetWrapperStyled = styled.div`
@@ -32,8 +25,6 @@ export const MinBetWrapperStyled = styled.div`
   background-color: whitesmoke;
   bottom: -16px;
   right: -8px;
-  font-size: 15px;
-  padding: 2px 12px;
   font-family: 'Montserrat', sans-serif;
 `
 
@@ -71,74 +62,50 @@ export const JackpotWrapperStyled = styled.div`
       ? css`
           ${JackpotAmountStyled} {
             background-image: url('images/gold.png');
-            font-size: 72px;
-            @media (min-height: 1400px) {
-              font-size: 96px;
-            }
+            font-size: ${({ special }) => special ? '6vw' : '8vw'};
           }
           ${MinBetWrapperStyled} {
-            font-size: 19px;
-            padding: 8px 24px;
-            @media (min-height: 1100px) {
-              font-size: 32px;
-            }
+            font-size: ${({ special }) => special ? '1.3vw' : '1.5vw'};
+            padding: 0.5vw 1.6vw;
           }
           ${JackpotTitleStyled} {
-            top: -48px;
-            padding: 10px 26px;
-            font-size: 48px;
-            @media (min-height: 1100px) {
-              font-size: 84px;
-            }
+            padding-bottom: 0.2vw;
+            font-size: 3.6vw;
+            letter-spacing: 0.2vw;
+            word-spacing: 1.2vw;
           }
         `
       : type === 'silver'
       ? css`
           ${JackpotAmountStyled} {
             background-image: url('images/silver.png');
-            font-size: 64px;
-            @media (min-height: 1400px) {
-              font-size: 86px;
-            }
+            font-size: ${({ special }) => special ? '5vw' : '6.5vw'};
           }
           ${MinBetWrapperStyled} {
-            font-size: 17px;
-            padding: 6px 20px;
-            @media (min-height: 1100px) {
-              font-size: 32px;
-            }
+            font-size: ${({ special }) => special ? '1vw' : '1.2vw'};
+            padding: 0.4vw 1.4vw;
           }
           ${JackpotTitleStyled} {
-            top: -40px;
-            padding: 8px 22px;
-            font-size: 42px;
-            @media (min-height: 1100px) {
-              font-size: 74px;
-            }
+            padding-bottom: 0.2vw;
+            font-size: 3.2vw;
+            letter-spacing: 0.2vw;
+            word-spacing: 1.2vw;
           }
         `
       : css`
           ${JackpotAmountStyled} {
             background-image: url('images/bronze.png');
-            font-size: 56px;
-            @media (min-height: 1400px) {
-              font-size: 76px;
-            }
+            font-size: ${({ special }) => special ? '4vw' : '6vw'};
           }
           ${MinBetWrapperStyled} {
-            font-size: 15px;
-            padding: 4px 16px;
-            @media (min-height: 1100px) {
-              font-size: 28px;
-            }
+            font-size: ${({ special }) => special ? '.7vw' : '1vw'};
+            padding: 0.35vw 1.3vw;
           }
           ${JackpotTitleStyled} {
-            top: -32px;
-            padding: 6px 18px;
-            font-size: 36px;
-            @media (min-height: 1100px) {
-              font-size: 60px;
-            }
+            padding-bottom: 0.2vw;
+            font-size: 2.8vw;
+            letter-spacing: 0.2vw;
+            word-spacing: 1.2vw;
           }
         `}
 `

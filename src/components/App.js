@@ -66,7 +66,7 @@ export default function App() {
       <Background />
       {Object.keys(data).length > 0 && (
         <>
-          <JackpotsWrapperStyled>
+          <JackpotsWrapperStyled $special={parseInt(data.current.red.running) || parseInt(data.current.green.running)}>
             <NormalJackpotsWrapperStyled>
               {parseInt(data.current.gold.running) ? (
                 <Jackpot
@@ -74,6 +74,7 @@ export default function App() {
                   amount={data.current.gold.jackpot}
                   prevAmount={prevData?.current?.gold?.jackpot || 0}
                   minBet={data.controls?.gold?.min || 'xxx'}
+                  special={parseInt(data.current.red.running) || parseInt(data.current.green.running)}
                 />
               ) : (
                 <></>
@@ -84,6 +85,7 @@ export default function App() {
                   amount={data.current.silver.jackpot}
                   prevAmount={prevData?.current?.silver?.jackpot || 0}
                   minBet={data.controls?.silver?.min || 'xxx'}
+                  special={parseInt(data.current.red.running) || parseInt(data.current.green.running)}
                 />
               ) : (
                 <></>
@@ -94,13 +96,14 @@ export default function App() {
                   amount={data.current.bronze.jackpot}
                   prevAmount={prevData?.current?.bronze?.jackpot || 0}
                   minBet={data.controls?.bronze?.min || 'xxx'}
+                  special={parseInt(data.current.red.running) || parseInt(data.current.green.running)}
                 />
               ) : (
                 <></>
               )}
             </NormalJackpotsWrapperStyled>
             <SpecialJackpotsWrapperStyled>
-              {parseInt(data.current.red.running) ? (
+              {parseInt(data.current.red.running) || parseInt(data.current.green.running) ? (
                 <SpecialJackpot
                   type='red'
                   amount={data.current.red.jackpot}
@@ -110,7 +113,7 @@ export default function App() {
               ) : (
                 <></>
               )}
-              {parseInt(data.current.green.running) ? (
+              {parseInt(data.current.red.running) || parseInt(data.current.green.running) ? (
                 <SpecialJackpot
                   type='green'
                   amount={data.current.green.jackpot}

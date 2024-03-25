@@ -8,8 +8,7 @@ export const SpecialJackpotWrapperStyled = styled.div`
   justify-content: flex-end;
   text-align: center;
   color: whitesmoke;
-  gap: 12px;
-  width: calc(50% - 12px);
+  gap: 1vw;
 
   &::before {
     position: absolute;
@@ -25,32 +24,26 @@ export const SpecialJackpotWrapperStyled = styled.div`
   }
 
   ${MinBetWrapperStyled} {
-    padding: 6px 18px;
-    font-size: 13px;
+    padding: .4vw 1.2vw;
+    font-size: 1.2vw;
     color: black;
-
-    @media (min-height: 1100px) {
-      font-size: 24px;
-    }
   }
 `;
 
 export const SpecialJackpotTitleStyled = styled.h2`
-  font-size: 28px;
+  font-size: 2.4vw;
+  letter-spacing: 0.1vw;
+  word-spacing: .8vw;
   text-transform: uppercase;
   margin: 0;
-
-  @media (min-height: 1100px) {
-    font-size: 36px;
-  }
 `;
 
 export const SpecialJackpotAmountStyled = styled.h4`
   text-transform: uppercase;
   margin: 0;
   background-color: ${({ type }) => `var(--main-${type})`};
-  font-size: 36px;
-  letter-spacing: 4px;
+  font-size: 4.4vw;
+  letter-spacing: 0.2vw;
   word-wrap: 4px;
   padding: 1vh 3vw;
   border-radius: 6px;
@@ -58,13 +51,5 @@ export const SpecialJackpotAmountStyled = styled.h4`
   font-family: monospace;
   border-radius: 6px;
   text-wrap: nowrap;
-  min-width: 320px;
-
-  @media (min-height: 1100px) {
-    font-size: 48px;
-  }
-
-  @media (min-height: 1400px) {
-    font-size: 64px;
-  }
+  width: 35vw;
 `;

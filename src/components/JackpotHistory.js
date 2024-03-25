@@ -1,5 +1,5 @@
 import React from 'react'
-import { JackpotStripWrapperStyled, JackpotWrapperStyled, JackpotsWrapperStyled, WrapperStyled } from './JackpotHistory.style'
+import { JackpotRowWrapperStyled, JackpotStripWrapperStyled, JackpotWrapperStyled, JackpotsWrapperStyled, WrapperStyled } from './JackpotHistory.style'
 import { amountFormatter } from '@/utils/util'
 import { WinShowcaseTypeStyled } from './WinShowcase.style'
 
@@ -21,7 +21,7 @@ export default function JackpotHistory({ controls = {}, jackpots = {} }) {
 
   return (
     <WrapperStyled className={Object.keys(jackpots).length > 0 ? className : ''}>
-      <JackpotStrip />
+      <JackpotStripWrapperStyled />
       <JackpotsWrapperStyled>
         {Object.keys(jackpots).map((type, index) => {
           const jackpotGroup = jackpots[type]
@@ -29,64 +29,19 @@ export default function JackpotHistory({ controls = {}, jackpots = {} }) {
             <React.Fragment key={index}>
               {jackpotGroup.map((jackpot, index2) => {
                 return (
-                  <React.Fragment key={index2}>
+                  <JackpotRowWrapperStyled key={index2}>
                     <span>{jackpot.sql_inserted}</span>
                     <span>{jackpot.sql_bar}</span>
                     <span>{`${amountFormatter(jackpot.jackpot).split('.')[0].replaceAll(',', ' ')} CZK`}</span>
                     <WinShowcaseTypeStyled type={jackpot.sql_jp_name.toLowerCase()}>{jackpot.sql_jp_name}</WinShowcaseTypeStyled>
-                  </React.Fragment>
+                  </JackpotRowWrapperStyled>
                 )
               })}
             </React.Fragment>
           )
         })}
       </JackpotsWrapperStyled>
-      <JackpotStrip />
+      <JackpotStripWrapperStyled />
     </WrapperStyled>
-  )
-}
-
-const JackpotStrip = () => {
-  const wrapperRef = React.useRef(null)
-
-  const getTextWidth = (text, font) => {
-    const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
-    const context = canvas.getContext("2d");
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-
-  const createDynamicStripe = () => {
-    wrapperRef.current.innerHTML = ''
-
-    const elementSize = wrapperRef.current.getBoundingClientRect()
-    const firstStarsStrip = document.createElement('div')
-    firstStarsStrip.classList.add('strip_stars')
-    const starsGap = 10
-    const starWidth = 20
-    let tempStars = 0
-    while (tempStars < elementSize.width) {
-      const starElement = document.createElement('img')
-      starElement.src = 'images/star.png'
-      starElement.style = `width: ${starWidth}px;`
-      tempStars += starWidth + starsGap
-      if (tempStars - starsGap < elementSize.width) {
-        firstStarsStrip.appendChild(starElement)
-      }
-    }
-    wrapperRef.current.appendChild(firstStarsStrip)
-  }
-
-  React.useEffect(() => {
-    if (!wrapperRef || !wrapperRef.current) return
-
-    createDynamicStripe()
-    window.addEventListener('resize', createDynamicStripe)
-    return () => window.removeEventListener('resize', createDynamicStripe)
-  }, [])
-
-  return (
-    <JackpotStripWrapperStyled ref={wrapperRef} />
   )
 }

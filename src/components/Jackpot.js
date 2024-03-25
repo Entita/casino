@@ -2,9 +2,9 @@ import React from 'react'
 import CountUp from 'react-countup';
 import { JackpotAmountStyled, JackpotBorderWrapperStyled, JackpotTitleStyled, JackpotWrapperStyled, MinBetAmountStyled, MinBetTextStyled, MinBetWrapperStyled } from './Jackpot.style'
 
-export default function Jackpot({ minBet, amount, prevAmount, type }) {
+export default function Jackpot({ special, minBet, amount, prevAmount, type }) {
   return (
-    <JackpotWrapperStyled type={type}>
+    <JackpotWrapperStyled special={special} type={type}>
       <JackpotTitleStyled>{`${type} JACKPOT`}</JackpotTitleStyled>
       <JackpotBorderWrapperStyled>
         <JackpotAmountStyled>

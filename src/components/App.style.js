@@ -24,7 +24,7 @@ export const WrapperStyled = styled.div`
 
 export const JackpotsWrapperStyled = styled.div`
   display: grid;
-  grid-template-rows: 85% 15%;
+  grid-template-rows: ${({ $special }) => $special ? '75% 25%' : '100%'};
   height: 85vh;
 `;
 
@@ -34,9 +34,7 @@ export const NormalJackpotsWrapperStyled = styled.div`
   align-items: center;
   justify-content: space-evenly;
   height: 100%;
-  @media (min-height: 1100px) {
-    gap: 4rem;
-  }
+  gap: 4vw;
 `;
 
 export const SpecialJackpotsWrapperStyled = styled.div`

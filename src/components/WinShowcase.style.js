@@ -4,7 +4,7 @@ export const WinShowcaseWrapperStyled = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 0.5vw;
   flex-wrap: nowrap;
   justify-content: space-evenly;
   min-width: 30vw;
@@ -31,27 +31,15 @@ export const WinShowcaseTypeStyled = styled.span`
   background-image: ${({ type }) => `url(images/${type}.png)`};
   background-position: center;
   background-size: cover;
-  padding: 4px 18px;
+  padding: 0.5vw 1vw;
   text-transform: uppercase;
-  font-size: 21px;
+  font-size: 1.3vw;
+  text-align: center;
   border: 2px solid black;
-  @media (min-height: 1100px) {
-    font-size: 32px;
-  }
-  @media (min-height: 1400px) {
-    font-size: 42px;
-  }
 `
 
 const FooterText = styled.span`
-  font-size: 26px;
-
-  @media (min-height: 1100px) {
-    font-size: 32px;
-  }
-  @media (min-height: 1400px) {
-    font-size: 42px;
-  }
+  font-size: 1.6vw;
 `
 
 export const WinShowcaseAmountStyled = styled(FooterText)``;
