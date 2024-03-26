@@ -31,9 +31,9 @@ export const WinShowcaseTypeStyled = styled.span`
   background-image: ${({ type }) => `url(images/${type}.png)`};
   background-position: center;
   background-size: cover;
-  padding: 0.5vw 1vw;
+  padding: 0.2vw 1vw;
   text-transform: uppercase;
-  font-size: 1.3vw;
+  font-size: 1.1vw;
   text-align: center;
   border: 2px solid black;
 `
