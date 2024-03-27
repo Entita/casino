@@ -9,7 +9,7 @@ export const JackpotTitleStyled = styled.h2`
 
 export const JackpotAmountStyled = styled.h4`
   letter-spacing: 4px;
-  padding: 1vh 10vw;
+  padding: 0.2vw 10vw;
   word-spacing: 4px;
   text-transform: uppercase;
   background-position: center;
@@ -62,7 +62,7 @@ export const JackpotWrapperStyled = styled.div`
       ? css`
           ${JackpotAmountStyled} {
             background-image: url('images/gold.png');
-            font-size: ${({ special }) => special ? '6vw' : '8vw'};
+            font-size: ${({ special }) => special ? '5.5vw' : '7.5vw'};
           }
           ${MinBetWrapperStyled} {
             font-size: ${({ special }) => special ? '1.3vw' : '1.5vw'};
@@ -79,7 +79,7 @@ export const JackpotWrapperStyled = styled.div`
       ? css`
           ${JackpotAmountStyled} {
             background-image: url('images/silver.png');
-            font-size: ${({ special }) => special ? '5vw' : '6.5vw'};
+            font-size: ${({ special }) => special ? '4.6vw' : '6vw'};
           }
           ${MinBetWrapperStyled} {
             font-size: ${({ special }) => special ? '1vw' : '1.2vw'};
@@ -95,7 +95,7 @@ export const JackpotWrapperStyled = styled.div`
       : css`
           ${JackpotAmountStyled} {
             background-image: url('images/bronze.png');
-            font-size: ${({ special }) => special ? '4vw' : '6vw'};
+            font-size: ${({ special }) => special ? '3.7vw' : '5.5vw'};
           }
           ${MinBetWrapperStyled} {
             font-size: ${({ special }) => special ? '.7vw' : '1vw'};
