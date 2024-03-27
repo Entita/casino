@@ -9,7 +9,7 @@ export const JackpotTitleStyled = styled.h2`
 
 export const JackpotAmountStyled = styled.h4`
   letter-spacing: 4px;
-  padding: 0.2vw 10vw;
+  padding: 1vh 13vw;
   word-spacing: 4px;
   text-transform: uppercase;
   background-position: center;
@@ -70,7 +70,7 @@ export const JackpotWrapperStyled = styled.div`
           }
           ${JackpotTitleStyled} {
             padding-bottom: 0.2vw;
-            font-size: 3.6vw;
+            font-size: 3.2vw;
             letter-spacing: 0.2vw;
             word-spacing: 1.2vw;
           }
@@ -87,7 +87,7 @@ export const JackpotWrapperStyled = styled.div`
           }
           ${JackpotTitleStyled} {
             padding-bottom: 0.2vw;
-            font-size: 3.2vw;
+            font-size: 2.8vw;
             letter-spacing: 0.2vw;
             word-spacing: 1.2vw;
           }
@@ -103,7 +103,7 @@ export const JackpotWrapperStyled = styled.div`
           }
           ${JackpotTitleStyled} {
             padding-bottom: 0.2vw;
-            font-size: 2.8vw;
+            font-size: 2.3vw;
             letter-spacing: 0.2vw;
             word-spacing: 1.2vw;
           }
