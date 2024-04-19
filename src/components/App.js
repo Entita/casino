@@ -26,7 +26,7 @@ export default function App() {
     () => (data?.controls ? data.controls?.refreshData : 15),
     [data?.controls],
   );
-  const test = React.useMemo(() => parseInt(data?.current?.red?.running) || parseInt(data?.current?.green?.running) || true, [data])
+  const isGreenAndRedRuning = React.useMemo(() => parseInt(data?.current?.red?.running) || parseInt(data?.current?.green?.running), [data])
 
   const fetchData = async () => {
     await axios({
@@ -67,7 +67,7 @@ export default function App() {
       <Background />
       {Object.keys(data).length > 0 && (
         <>
-          <JackpotsWrapperStyled $special={test}>
+          <JackpotsWrapperStyled $special={isGreenAndRedRuning}>
             <NormalJackpotsWrapperStyled>
               {parseInt(data.current.gold.running) ? (
                 <Jackpot
@@ -75,7 +75,7 @@ export default function App() {
                   amount={data.current.gold.jackpot}
                   prevAmount={prevData?.current?.gold?.jackpot || 0}
                   minBet={data.controls?.gold?.min || 'xxx'}
-                  special={test}
+                  special={isGreenAndRedRuning}
                 />
               ) : (
                 <></>
@@ -86,7 +86,7 @@ export default function App() {
                   amount={data.current.silver.jackpot}
                   prevAmount={prevData?.current?.silver?.jackpot || 0}
                   minBet={data.controls?.silver?.min || 'xxx'}
-                  special={test}
+                  special={isGreenAndRedRuning}
                 />
               ) : (
                 <></>
@@ -97,14 +97,14 @@ export default function App() {
                   amount={data.current.bronze.jackpot}
                   prevAmount={prevData?.current?.bronze?.jackpot || 0}
                   minBet={data.controls?.bronze?.min || 'xxx'}
-                  special={test}
+                  special={isGreenAndRedRuning}
                 />
               ) : (
                 <></>
               )}
             </NormalJackpotsWrapperStyled>
             <SpecialJackpotsWrapperStyled>
-              {true ? (
+              {parseInt(data?.current?.red?.running) ? (
                 <SpecialJackpot
                   type='red'
                   amount={data.current.red.jackpot}
@@ -114,7 +114,7 @@ export default function App() {
               ) : (
                 <></>
               )}
-              {true ? (
+              {parseInt(data?.current?.green?.running) ? (
                 <SpecialJackpot
                   type='green'
                   amount={data.current.green.jackpot}
