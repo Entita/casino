@@ -28,30 +28,50 @@ const controlSchema = new Schema(
       default: 10,
     },
     gold: {
+      enableMin: {
+        type: Boolean,
+        default: true,
+      },
       min: {
         type: Number,
         default: 0,
       },
     },
     silver: {
+      enableMin: {
+        type: Boolean,
+        default: true,
+      },
       min: {
         type: Number,
         default: 0,
       },
     },
     bronze: {
+      enableMin: {
+        type: Boolean,
+        default: true,
+      },
       min: {
         type: Number,
         default: 0,
       },
     },
     red: {
+      enableMin: {
+        type: Boolean,
+        default: true,
+      },
       min: {
         type: Number,
         default: 0,
       },
     },
     green: {
+      enableMin: {
+        type: Boolean,
+        default: true,
+      },
       min: {
         type: Number,
         default: 0,

@@ -95,7 +95,7 @@ export const JackpotWrapperStyled = styled.div`
       : css`
           ${JackpotAmountStyled} {
             background-image: url('images/bronze.png');
-            font-size: ${({ special }) => special ? '3.7vw' : '5.5vw'};
+            font-size: ${({ special }) => special ? '3.7vw' : '5vw'};
           }
           ${MinBetWrapperStyled} {
             font-size: ${({ special }) => special ? '.7vw' : '1vw'};

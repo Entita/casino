@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Button, FormControlLabel, FormGroup, Input } from '@mui/material'
+import { Button, FormControlLabel, FormGroup, Input, Switch } from '@mui/material'
 import { toast } from 'react-toastify'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomHistoryWrapperStyled, NewJackpotButtonsWrapperStyled, NewJackpotErrorsWrapperStyled, NewJackpotWrapperStyled, WrapperStyled } from './Controls.style'
@@ -162,6 +162,10 @@ export default function Controls() {
                     <div key={type}>
                       <h3>{type}</h3>
                       <div>
+                        <FormControlLabel control={<Switch color='primary' checked={controls[type].enableMin} onChange={({ target }) => {
+                          const newControls = { ...controls, [type]: { ...controls[type], 'enableMin': target.checked } }
+                          changeControls(newControls)
+                        }} />} label={controls[type].enableMin ? 'Zapnuto' : 'Vypnuto'} />
                         <FormControlLabel control={<Input value={controls[type].min} onChange={({ target }) => {
                           if (parseFloat(target.value) > 0) {
                             const newControls = { ...controls, [type]: { ...controls[type], 'min': parseFloat(target.value) } }

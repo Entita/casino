@@ -74,6 +74,7 @@ export default function App() {
                   type='gold'
                   amount={data.current.gold.jackpot}
                   prevAmount={prevData?.current?.gold?.jackpot || 0}
+                  showMinBet={data.controls?.gold?.enableMin}
                   minBet={data.controls?.gold?.min || 'xxx'}
                   special={isGreenAndRedRuning}
                 />
@@ -85,6 +86,7 @@ export default function App() {
                   type='silver'
                   amount={data.current.silver.jackpot}
                   prevAmount={prevData?.current?.silver?.jackpot || 0}
+                  showMinBet={data.controls?.silver?.enableMin}
                   minBet={data.controls?.silver?.min || 'xxx'}
                   special={isGreenAndRedRuning}
                 />
@@ -96,6 +98,7 @@ export default function App() {
                   type='bronze'
                   amount={data.current.bronze.jackpot}
                   prevAmount={prevData?.current?.bronze?.jackpot || 0}
+                  showMinBet={data.controls?.bronze?.enableMin}
                   minBet={data.controls?.bronze?.min || 'xxx'}
                   special={isGreenAndRedRuning}
                 />
@@ -109,6 +112,7 @@ export default function App() {
                   type='red'
                   amount={data.current.red.jackpot}
                   prevAmount={prevData?.current?.red?.jackpot || 0}
+                  showMinBet={data.controls?.red?.enableMin}
                   minBet={data.controls?.red?.min || 'xxx'}
                 />
               ) : (
@@ -119,6 +123,7 @@ export default function App() {
                   type='green'
                   amount={data.current.green.jackpot}
                   prevAmount={prevData?.current?.green?.jackpot || 0}
+                  showMinBet={data.controls?.green?.enableMin}
                   minBet={data.controls?.green?.min || 'xxx'}
                 />
               ) : (
