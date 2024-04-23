@@ -8,7 +8,7 @@ export default function Jackpot({ special, showMinBet = true, minBet, amount, pr
       <JackpotTitleStyled>{`${type} JACKPOT`}</JackpotTitleStyled>
       <JackpotBorderWrapperStyled>
         <JackpotAmountStyled>
-          <CountUp start={prevAmount} end={amount} duration={15} decimals={2} suffix=' CZK' useEasing={false} />
+          <CountUp start={prevAmount} end={amount} duration={15} decimals={0} suffix=' CZK' useEasing={false} />
         </JackpotAmountStyled>
         {showMinBet && (
           <MinBetWrapperStyled>

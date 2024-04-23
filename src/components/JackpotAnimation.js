@@ -1,84 +1,137 @@
 import React from 'react'
 import {
+  JackpotAmountTitleStyled,
   JackpotAnimationTitleWrapperStyled,
   JackpotAnimationWrapperStyled,
   JackpotBackgroundStyled,
-  JackpotBackgroundWrapperStyled
+  JackpotBackgroundWrapperStyled,
+  JackpotLetterStyled,
+  JackpotTitleWrapperStyled,
+  SlotMachineStyled,
+  SlotMachineStyledAnimation,
+  SlotMachineStyledStatic,
+  SlotMachineTitleStyled
 } from './JackpotAnimation.style'
 import { amountFormatter } from '@/utils/util'
+import { JackpotAmountStyled, JackpotBorderWrapperStyled, JackpotTitleStyled } from './Jackpot.style'
 
-export default function JackpotAnimation({ lastJackpot, setLastJackpot }) {
+export default function JackpotAnimation({ controls, lastJackpot, setLastJackpot }) {
   const [loaded, setLoaded] = React.useState(false)
   const [showJackpot, setShowJackpot] = React.useState(false)
   const [audio] = React.useState(typeof Audio !== "undefined" && new Audio('/sounds/jackpot_v2.mp3'))
-  const videoRef = React.useRef(null)
+  const starsWrapperRef = React.useRef(null)
   const slotMachineRef = React.useRef(null)
+  const slotMachineAnimationRef = React.useRef(null)
+  const duration = 20000
+
+  const createStars = () => {
+    const getRandomNumber = (min, max) => {
+      return Math.random() * (max - min) + min;
+    }
+
+    starsWrapperRef.current.innerHTML = ''
+    const numberOfStars = controls?.animationParticles || 150
+    let i = 0
+    const degSpace = 360 / numberOfStars
+    while (i < numberOfStars) {
+      const starElement = document.createElement('div')
+      const starTailElement = document.createElement('div')
+      starElement.classList.add('flying_particle')
+      starTailElement.classList.add('flying_particle_tail')
+
+      const rotation = i * degSpace + getRandomNumber(0.1, 10)
+      const delayInSec = getRandomNumber(0, 2) + 0.4
+      starElement.animate([
+        {
+          scale: 1,
+          transform: `rotate(${rotation}deg) translateX(0)`,
+        },
+        {
+          scale: 1,
+          transform: `rotate(${rotation}deg) translateX(min(-75vw, -75vh))`,
+        },
+      ], { duration: 2000, iterations: Math.floor(duration / 2000) - 1, easing: 'linear', delay: delayInSec * 1000 })
+      starElement.appendChild(starTailElement)
+      starTailElement.animate([
+        { width: 0, offset: 0 },
+        { width: 'max(15vw, 15vh)', offset: 0.3 },
+        { width: 'max(15vw, 15vh)', offset: 0.9 },
+        { width: 0, offset: 0.901 },
+        { width: 0, offset: 1 },
+      ], { duration: 2000, iterations: Math.floor(duration / 2000) - 1, easing: 'linear', delay: delayInSec * 1000 })
+
+      starElement.appendChild(starTailElement)
+      starsWrapperRef.current.appendChild(starElement)
+      i++
+    }
+    setTimeout(() => {
+      starsWrapperRef.current.innerHTML = ''
+    }, duration)
+  }
 
   React.useEffect(() => {
     setLoaded(true)
   }, [])
 
   React.useEffect(() => {
+    if (Object.keys(lastJackpot).length === 0) return
     audio.load()
-    videoRef.current.load()
     slotMachineRef.current.load()
-    if (Object.keys(lastJackpot).length === 0 || !videoRef || !videoRef.current || !slotMachineRef || !slotMachineRef.current) return
-
+    audio.volume = 0.15
+    audio.currentTime = 1
     setShowJackpot(true)
-    slotMachineRef.current.play()
-    audio.volume = 0.05
-    audio.currentTime = 2
     audio.play()
-
+    slotMachineRef.current.play()
+    createStars()
     let timeout1 = setTimeout(() => {
-      videoRef.current.play()
-    }, 1500)
+      slotMachineAnimationRef.current.load()
+      slotMachineAnimationRef.current.play()
+    }, 2100)
     let timeout2 = setTimeout(() => {
+      audio.pause()
       setShowJackpot(false)
-      setTimeout(() => {
-        setLastJackpot({})
-      }, 400)
-    }, 10000)
+      setLastJackpot({})
+    }, duration)
 
     return () => {
       clearTimeout(timeout1)
       clearTimeout(timeout2)
+      audio.pause()
     }
   }, [lastJackpot])
 
   return (
     <JackpotAnimationWrapperStyled loaded={loaded} showJackpot={showJackpot}>
-      <video ref={videoRef} muted>
-        <source src='video/padajici-mince_transparent.webm' type="video/mp4" />
-      </video>
       <JackpotAnimationTitleWrapperStyled>
         <JackpotBackgroundWrapperStyled showJackpot={showJackpot}>
-          <JackpotBackgroundStyled showJackpot={showJackpot} />
-          <svg viewBox="0 0 500 500">
-            <path id="jackpot_curve" fill='transparent' d="M73.2,148.6c4-6.1,65.5-66.8,178.6-65.6c111.3,1.2,170.8,70.3,175.1,67" />
-            <text id='jackpot_curve_text' width="500">
-              <textPath startOffset="50%" textAnchor="middle" xlinkHref="#jackpot_curve">JACKPOT</textPath>
-            </text>
-
-            <path id='type_curve' fill='transparent' d="m 123 149 c 4 -6.1 51 -27 121 -25 C 254 122 315 125 349 150" />
-            <text id='type_curve_text' width="500">
-              <textPath startOffset="50%" textAnchor="middle" xlinkHref="#type_curve">{lastJackpot?.sql_jp_name || ''}</textPath>
-            </text>
-
-	          <path id='machine_curve' fill='transparent' d="m 133 339 c 2 5 8 25 115 25 C 353 363 359 345 359 340" />
-            <text id='machine_curve_text' width="500">
-              <textPath startOffset="50%" textAnchor="middle" xlinkHref="#machine_curve">{lastJackpot?.sql_machine || ''}</textPath>
-            </text>
-
-            <path id='amount_curve' fill='transparent' d="M 73.2 348.6 c 1.8 7.4 14.8 66.4 178.6 65.6 c 161.2 -1.2 172.2 -59.2 175.1 -67" />
-            <text id='amount_curve_text' width="500">
-              <textPath startOffset="50%" textAnchor="middle" xlinkHref="#amount_curve">{amountFormatter(lastJackpot?.jackpot || 0)}</textPath>
-            </text>
-          </svg>
+          <JackpotBackgroundStyled ref={starsWrapperRef} showJackpot={showJackpot} />
+          {Object.keys(lastJackpot).length > 0 && (
+            <>
+              <JackpotTitleWrapperStyled>
+                <JackpotLetterStyled id='j' src='./images/j.png' />
+                <JackpotLetterStyled id='a' src='./images/a.png' />
+                <JackpotLetterStyled id='c' src='./images/c.png' />
+                <JackpotLetterStyled id='k' src='./images/k.png' />
+                <JackpotLetterStyled id='p' src='./images/p.png' />
+                <JackpotLetterStyled id='o' src='./images/o.png' />
+                <JackpotLetterStyled id='t' src='./images/t.png' />
+              </JackpotTitleWrapperStyled>
+              <SlotMachineStyledStatic ref={slotMachineRef} muted autoplay loop>
+                <source src='video/slot-static.webm' type="video/mp4" />
+              </SlotMachineStyledStatic>
+              <SlotMachineStyledAnimation ref={slotMachineAnimationRef} muted>
+                <source src='video/slot-animation.webm' type="video/mp4" />
+              </SlotMachineStyledAnimation>
+              <SlotMachineTitleStyled>{lastJackpot.sql_machine}</SlotMachineTitleStyled>
+              <JackpotAmountTitleStyled type={lastJackpot.sql_jp_name?.toLowerCase()}>
+                <JackpotTitleStyled>{`${lastJackpot.sql_jp_name} JACKPOT`}</JackpotTitleStyled>
+                <JackpotBorderWrapperStyled>
+                  <JackpotAmountStyled>{`${amountFormatter(lastJackpot.jackpot)} CZK`}</JackpotAmountStyled>
+                </JackpotBorderWrapperStyled>
+              </JackpotAmountTitleStyled>
+            </>
+          )}
         </JackpotBackgroundWrapperStyled>
-        <video ref={slotMachineRef} muted>
-          <source src='video/slot-machine.webm' type="video/mp4" />
-        </video>
       </JackpotAnimationTitleWrapperStyled>
     </JackpotAnimationWrapperStyled>
   )

@@ -3,6 +3,14 @@ const Schema = mongoose.Schema;
 
 const controlSchema = new Schema(
   {
+    practice: {
+      type: Boolean,
+      default: false,
+    },
+    animationParticles: {
+      type: Number,
+      default: 150,
+    },
     refreshData: {
       type: Number,
       default: 15,

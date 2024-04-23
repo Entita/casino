@@ -62,10 +62,10 @@ export default function App() {
 
   return (
     <WrapperStyled>
-      <JackpotAnimation lastJackpot={lastJackpot} setLastJackpot={setLastJackpot} />
-      <JackpotHistory controls={data.controls} jackpots={data.customHistory} />
+      <JackpotAnimation controls={data.controls} lastJackpot={lastJackpot} setLastJackpot={setLastJackpot} />
+      {Object.keys(lastJackpot).length === 0 && <JackpotHistory controls={data.controls} jackpots={data.customHistory} />}
       <Background />
-      {Object.keys(data).length > 0 && (
+      {Object.keys(data).length > 0 && Object.keys(lastJackpot).length === 0 && (
         <>
           <JackpotsWrapperStyled $special={isGreenAndRedRuning}>
             <NormalJackpotsWrapperStyled>
