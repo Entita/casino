@@ -27,7 +27,7 @@ const getJackpotCollection = (type) => {
 }
 
 let lastJackpot = null
-let temp = 1
+let temp = 4
 
 const getIndexOfJackpot = (jackpots, lastJackpot) => {
   return jackpots.findIndex((obj) => (
@@ -112,7 +112,7 @@ export async function GET() {
     lastJackpot = jackpotsHistory[0]
   }
 
-  if (controls.practice && temp % 2 === 0) jackpots.newJackpot = jackpotsHistory[0]
+  if (controls.practice && temp % 5 === 0) jackpots.newJackpot = jackpotsHistory[0]
   temp ++
 
   return NextResponse.json({
