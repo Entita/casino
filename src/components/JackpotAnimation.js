@@ -30,7 +30,7 @@ export default function JackpotAnimation({ controls, lastJackpot, setLastJackpot
     }
 
     starsWrapperRef.current.innerHTML = ''
-    const numberOfStars = controls?.animationParticles || 150
+    const numberOfStars = typeof controls?.animationParticles === 'number' ? controls.animationParticles : 150
     let i = 0
     const degSpace = 360 / numberOfStars
     while (i < numberOfStars) {

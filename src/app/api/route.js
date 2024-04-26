@@ -13,9 +13,11 @@ dbConnect()
 
 const createJackpot = async (jackpotData, saveToAll = true) => {
   const data = {jackpot: JSON.stringify(jackpotData)}
-  if (jackpotData.sql_jp_name.toLowerCase() === 'bronze') await BronzeJackpot({ ...data, date: jackpotData.sql_inserted }).save()
-  else if (jackpotData.sql_jp_name.toLowerCase() === 'silver') await SilverJackpot({ ...data, date: jackpotData.sql_inserted }).save()
-  else if (jackpotData.sql_jp_name.toLowerCase() === 'gold') await GoldJackpot({ ...data, date: jackpotData.sql_inserted }).save()
+  const dateTemp = jackpotData.sql_inserted.split('.')
+  const date = new Date(`${dateTemp[1]}/${dateTemp[0]}/${dateTemp[2]}`)
+  if (jackpotData.sql_jp_name.toLowerCase() === 'bronze') await BronzeJackpot({ ...data, date }).save()
+  else if (jackpotData.sql_jp_name.toLowerCase() === 'silver') await SilverJackpot({ ...data, date }).save()
+  else if (jackpotData.sql_jp_name.toLowerCase() === 'gold') await GoldJackpot({ ...data, date }).save()
   if (saveToAll) await Jackpot(data).save()
   return true
 };

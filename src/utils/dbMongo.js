@@ -39,10 +39,10 @@ export const findMongo = async (collection, filter = {}) => {
     .catch(() => null)
 }
 
-export const findAllMongo = async (collection, filter = {}) => {
+export const findAllMongo = async (collection, filter = {}, limit = 100) => {
   return await collection
     .find(filter)
-    .limit(100)
+    .limit(limit)
     .then((data) => data)
     .catch(() => null)
 }
