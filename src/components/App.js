@@ -26,6 +26,7 @@ export default function App() {
     () => (data?.controls ? data.controls?.refreshData : 15),
     [data?.controls],
   );
+  const [initial, setInitial] = React.useState(true)
   const isGreenAndRedRuning = React.useMemo(() => parseInt(data?.current?.red?.running) || parseInt(data?.current?.green?.running), [data])
 
   const fetchData = async () => {
@@ -52,10 +53,11 @@ export default function App() {
   };
 
   React.useEffect(() => {
+    if (initial) setInitial(false)
     const interval = setInterval(() => {
       fetchData();
     }, refreshDataSeconds * 1000);
-    fetchData();
+    if (initial) fetchData();
 
     return () => clearTimeout(interval);
   }, [refreshDataSeconds]);
@@ -76,6 +78,7 @@ export default function App() {
                   prevAmount={prevData?.current?.gold?.jackpot || 0}
                   showMinBet={data.controls?.gold?.enableMin}
                   minBet={data.controls?.gold?.min || 'xxx'}
+                  countDownDuration={data.controls?.refreshData || 15}
                   special={isGreenAndRedRuning}
                 />
               ) : (
@@ -88,6 +91,7 @@ export default function App() {
                   prevAmount={prevData?.current?.silver?.jackpot || 0}
                   showMinBet={data.controls?.silver?.enableMin}
                   minBet={data.controls?.silver?.min || 'xxx'}
+                  countDownDuration={data.controls?.refreshData || 15}
                   special={isGreenAndRedRuning}
                 />
               ) : (
@@ -100,6 +104,7 @@ export default function App() {
                   prevAmount={prevData?.current?.bronze?.jackpot || 0}
                   showMinBet={data.controls?.bronze?.enableMin}
                   minBet={data.controls?.bronze?.min || 'xxx'}
+                  countDownDuration={data.controls?.refreshData || 15}
                   special={isGreenAndRedRuning}
                 />
               ) : (
@@ -114,6 +119,7 @@ export default function App() {
                   prevAmount={prevData?.current?.red?.jackpot || 0}
                   showMinBet={data.controls?.red?.enableMin}
                   minBet={data.controls?.red?.min || 'xxx'}
+                  countDownDuration={data.controls?.refreshData || 15}
                 />
               ) : (
                 <></>
@@ -125,6 +131,7 @@ export default function App() {
                   prevAmount={prevData?.current?.green?.jackpot || 0}
                   showMinBet={data.controls?.green?.enableMin}
                   minBet={data.controls?.green?.min || 'xxx'}
+                  countDownDuration={data.controls?.refreshData || 15}
                 />
               ) : (
                 <></>
