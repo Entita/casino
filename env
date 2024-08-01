@@ -1,0 +1,1 @@
+MONGODB_URL="mongodb+srv://<<username>>:<<password>>@theloader.7w34i.mongodb.net/casino?retryWrites=true&w=majority"
