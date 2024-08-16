@@ -1,11 +1,11 @@
 const animFrame = ( function() {
-	return window.requestAnimationFrame ||
+	return typeof window !== "undefined" && (window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
 				function( callback ) {
 					window.setTimeout( callback, 1000 / 60 );
-				};
-})()
+				}
+)})()
 
 function random( min, max ) {
   return Math.random() * ( max - min ) + min;
