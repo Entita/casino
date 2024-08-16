@@ -14,64 +14,18 @@ import {
 } from './JackpotAnimation.style'
 import { amountFormatter } from '@/utils/util'
 import { JackpotAmountStyled, JackpotBorderWrapperStyled, JackpotTitleStyled } from './Jackpot.style'
+import FireworksCanvas from './FireworksCanvas'
 
 export default function JackpotAnimation({ controls, lastJackpot, setLastJackpot }) {
   const [loaded, setLoaded] = React.useState(false)
   const [showJackpot, setShowJackpot] = React.useState(false)
   const [audio] = React.useState(typeof Audio !== "undefined" && new Audio('/sounds/jackpot_v2.mp3'))
-  const starsWrapperRef = React.useRef(null)
   const slotMachineRef = React.useRef(null)
   const slotMachineAnimationRef = React.useRef(null)
+  const numberOfStars = typeof controls?.animationParticles === 'number' ? controls.animationParticles : 30
   const duration = 20000
 
-  const createStars = () => {
-    const getRandomNumber = (min, max) => {
-      return Math.random() * (max - min) + min;
-    }
-
-    starsWrapperRef.current.innerHTML = ''
-    const numberOfStars = typeof controls?.animationParticles === 'number' ? controls.animationParticles : 150
-    let i = 0
-    const degSpace = 360 / numberOfStars
-    while (i < numberOfStars) {
-      const starElement = document.createElement('div')
-      const starTailElement = document.createElement('div')
-      starElement.classList.add('flying_particle')
-      starTailElement.classList.add('flying_particle_tail')
-
-      const rotation = i * degSpace + getRandomNumber(0.1, 10)
-      const delayInSec = getRandomNumber(0, 2) + 0.4
-      starElement.animate([
-        {
-          scale: 1,
-          transform: `rotate(${rotation}deg) translateX(0)`,
-        },
-        {
-          scale: 1,
-          transform: `rotate(${rotation}deg) translateX(min(-75vw, -75vh))`,
-        },
-      ], { duration: 2000, iterations: Math.floor(duration / 2000) - 1, easing: 'linear', delay: delayInSec * 1000 })
-      starElement.appendChild(starTailElement)
-      starTailElement.animate([
-        { width: 0, offset: 0 },
-        { width: 'max(15vw, 15vh)', offset: 0.3 },
-        { width: 'max(15vw, 15vh)', offset: 0.9 },
-        { width: 0, offset: 0.901 },
-        { width: 0, offset: 1 },
-      ], { duration: 2000, iterations: Math.floor(duration / 2000) - 1, easing: 'linear', delay: delayInSec * 1000 })
-
-      starElement.appendChild(starTailElement)
-      starsWrapperRef.current.appendChild(starElement)
-      i++
-    }
-    setTimeout(() => {
-      starsWrapperRef.current.innerHTML = ''
-    }, duration)
-  }
-
-  React.useEffect(() => {
-    setLoaded(true)
-  }, [])
+  React.useEffect(() => setLoaded(true), [])
 
   React.useEffect(() => {
     if (Object.keys(lastJackpot).length === 0) return
@@ -82,7 +36,7 @@ export default function JackpotAnimation({ controls, lastJackpot, setLastJackpot
     setShowJackpot(true)
     audio.play()
     slotMachineRef.current.play()
-    createStars()
+    // createStars()
     let timeout1 = setTimeout(() => {
       slotMachineAnimationRef.current.load()
       slotMachineAnimationRef.current.play()
@@ -104,7 +58,7 @@ export default function JackpotAnimation({ controls, lastJackpot, setLastJackpot
     <JackpotAnimationWrapperStyled loaded={loaded} showJackpot={showJackpot}>
       <JackpotAnimationTitleWrapperStyled>
         <JackpotBackgroundWrapperStyled showJackpot={showJackpot}>
-          <JackpotBackgroundStyled ref={starsWrapperRef} showJackpot={showJackpot} />
+          {showJackpot && <FireworksCanvas numberOfStars={numberOfStars} />}
           {Object.keys(lastJackpot).length > 0 && (
             <>
               <JackpotTitleWrapperStyled>

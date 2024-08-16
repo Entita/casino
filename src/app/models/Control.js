@@ -11,6 +11,10 @@ const controlSchema = new Schema(
       type: Number,
       default: 150,
     },
+    animationTick: {
+      type: Number,
+      default: 10,
+    },
     refreshData: {
       type: Number,
       default: 15,

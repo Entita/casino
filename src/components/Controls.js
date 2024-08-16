@@ -155,6 +155,7 @@ export default function Controls() {
               <FormControlLabel control={<Input value={controls['lastJackpotsShow']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsShow': parseInt(target.value)})} />} label='Každých x vteřin zobrazit poslední jackpoty' />
               <FormControlLabel control={<Input value={controls['lastJackpotsHold']} onChange={({ target }) => changeControls({ ...controls, 'lastJackpotsHold': parseInt(target.value)})} />} label='Poslední jackpoty se zobrazují x vteřin' />
               <FormControlLabel control={<Input value={controls['animationParticles']} onChange={({ target }) => changeControls({ ...controls, 'animationParticles': parseInt(target.value)})} />} label='Počet hvězd při jackpotu' />
+              <FormControlLabel control={<Input value={controls['animationTick']} onChange={({ target }) => changeControls({ ...controls, 'animationTick': parseInt(target.value)})} />} label='Počet ticků při animaci hvězd' />
               <FormControlLabel control={<Switch color='primary' checked={controls['practice']} onChange={({ target }) => {
                 const newControls = { ...controls, 'practice': target.checked }
                 changeControls(newControls)
